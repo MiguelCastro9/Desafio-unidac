@@ -5,7 +5,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css}">
     </head>
     <body>
         <main>
@@ -56,9 +55,9 @@
                             <td th:text="${pessoa.cpf}"></td>
                             <td th:text="${pessoa.alimento}"></td>
                             <td>
-                                <a th:href="@{alterar/{id}(id=${pessoa.id})}" style="color: goldenrod;"><i class="bi bi-pencil-square"></i></a>
+                                <a th:href="@{alterar/{id}(id=${pessoa.id})}" style="color: goldenrod;">edit<i class="bi bi-pencil-square"></i></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <a th:href="@{excluir/{id}(id=${pessoa.id})}" style="color: tomato;"><i class="bi bi-trash-fill"></i></a>
+                                <a th:href="@{excluir/{id}(id=${pessoa.id})}" style="color: tomato;">delete<i class="bi bi-trash-fill"></i></a>
                             </td>
                         </tr>
                     </tbody>
