@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Cadastro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css}">
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <div th:replace="fragments/fragment :: cabecalho"></div>
+                <h1>Novo colaborador</h1>
+                <div th:replace="fragments/alert"></div>
+                <br>
+                <form th:action="${id == null} ? @{/salvar} : @{/alterar}" method="POST" th:object="${pessoa}">
+
+                    <input type="hidden" th:field="*{id}">
+
+                    <div class="form-group">
+                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('nome')}">
+                            <label class="validation-message" th:errors="*{nome}"></label>
+                        </div>
+                        <label>* Nome:</label>
+                        <input type="text" maxlength="45" class="form-control" th:field="*{nome}">
+                    </div>
+                    <div class="form-group">
+                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('cpf')}">
+                            <label class="validation-message" th:errors="*{cpf}"></label>
+                        </div>
+                        <label>* CPF:</label>
+                        <input type="text" maxlength="14" class="form-control" th:field="*{cpf}">
+                    </div>
+                    <div class="form-group">
+                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('alimento')}">
+                            <label class="validation-message" th:errors="*{alimento}"></label>
+                        </div>
+                        <label>* Alimento:</label>
+                        <input type="text" maxlength="45" class="form-control" th:field="*{alimento}">
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Salvar</button>
+                    <a class="btn btn-outline-secondary" th:href="@{/listar}"><i class="fas fa-home"></i> Cancelar</a>
+                </form>
+                <br><br><br>
+                <div th:replace="fragments/fragment :: rodape"></div>
+            </div>
+        </main>
+        <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>

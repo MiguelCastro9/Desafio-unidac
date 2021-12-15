@@ -1,0 +1,38 @@
+<div th:if="${success} != null">
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <span>
+            <i class="bi bi-bookmark-check-fill"></i>
+            <strong th:text="${success}"></strong>
+            <i class="bi bi-bookmark-check-fill"></i>
+        </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+<div th:if="${danger} != null">
+    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        <span>
+            <i class="bi bi-bookmark-x-fill"></i>
+            <strong th:text="${danger}"></strong>
+            <i class="bi bi-bookmark-x-fill"></i>
+        </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+<div th:if="${warning} != null">
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <span>
+            <i class="bi bi-bookmark-check-fill"></i>
+            <strong th:text="${warning}"></strong>
+            <i class="bi bi-bookmark-check-fill"></i>
+        </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>

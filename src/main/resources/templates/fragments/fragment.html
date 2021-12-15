@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css}">
+    </head>
+    <body>
+        <!--CABEÇALHO -->
+        <section>
+            <header th:fragment="cabecalho">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <div class="navbar-collapse collapse justify-content-end">
+                        <a class="btn btn-outline-primary" th:href="@{/listar}"><i class="fas fa-home"></i> Lista</a>
+                        &nbsp;&nbsp;
+                        <a class="btn btn-outline-primary" th:href="@{/cadastrar}"><i class="fas fa-list"></i> Cadastrar</a>
+                    </div>
+                </nav>
+            </header>
+        </section>
+        <!--RODAPÉ -->
+        <section>
+            <footer th:fragment="rodape">
+                <div class="rodape">
+                    <span>Desafio Unidac - 2021 &copy; Miguel Castro</span>
+                </div>
+            </footer>
+        </section>
+        <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>
