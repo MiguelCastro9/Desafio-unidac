@@ -35,10 +35,6 @@ public class PessoaController {
     public ModelAndView index(ModelMap model) {
 
         ModelAndView andView = new ModelAndView("index");
-        String teste = "123";
-
-        model.addAttribute("teste", teste);
-
         return andView;
     }
 

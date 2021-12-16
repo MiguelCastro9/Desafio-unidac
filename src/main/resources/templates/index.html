@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Lista</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css}">
     </head>
     <body>
-        <div th:text="*{teste}"></div>
-        
+        <main>
+            <br><br>
+            <div class="jumbotron container">
+                <h1 class="display-4">Desafio Unidac</h1>
+                <p class="lead">Aplicação desenvolvida pelo candidato <strong>Miguel Castro</strong> seguindo os requisítos da <a href="https://github.com/unidac-grupo-wl/desafio-unidac-grupo-wl" target="blank">proposta.</a></p>
+                <hr class="my-4">
+                <a th:href="@{/listar}" class="btn btn-outline-success" href="#" role="button">Ver aplicação</a>
+                <br><br>
+                <div th:replace="fragments/fragment :: rodape"></div>
+            </div>
+        </main>
     </body>
 </html>

@@ -11,11 +11,23 @@
         <!--CABEÇALHO -->
         <section>
             <header th:fragment="cabecalho">
-                <nav class="navbar navbar-expand-lg navbar-dark">
-                    <div class="navbar-collapse collapse justify-content-end">
-                        <a class="btn btn-outline-primary" th:href="@{/listar}"><i class="fas fa-home"></i> Lista</a>
-                        &nbsp;&nbsp;
-                        <a class="btn btn-outline-primary" th:href="@{/cadastrar}"><i class="fas fa-list"></i> Cadastrar</a>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand"><strong>Unidac</strong></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" th:href="@{/cadastrar}">Cadastrar</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" th:href="@{/listar}">Listar</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" th:href="@{/}">Home</a>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
             </header>
