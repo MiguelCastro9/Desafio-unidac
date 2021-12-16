@@ -25,8 +25,10 @@ public class PessoaController {
     PessoaRepository pessoaRepository;
 
     @GetMapping("/cadastrar")
-    public String cadastrarPessoa(@Valid Pessoa pessoa) {
-        return "/cadastro";
+    public ModelAndView cadastrarPessoa(@Valid Pessoa pessoa) {
+        
+        ModelAndView andView = new ModelAndView("cadastro");
+        return andView;
     }
 
     @GetMapping("/")
@@ -44,8 +46,8 @@ public class PessoaController {
     public ModelAndView salvarPessoa(String nome, String cpf, String alimento, @Valid Pessoa pessoa, BindingResult result, RedirectAttributes attr) {
 
         ModelAndView andView = new ModelAndView("cadastro");
-        //ModelAndView andViewRedirectCadastrar = new ModelAndView("redirect:/cadastrar");
-        //ModelAndView andViewRedirectListar = new ModelAndView("redirect:/listar");
+        ModelAndView andViewRedirectCadastrar = new ModelAndView("redirect:/cadastrar");
+        ModelAndView andViewRedirectListar = new ModelAndView("redirect:/listar");
         String verificadorCpf = pessoaRepository.verificaCpf(cpf);
         String verificadorAlimento = pessoaRepository.verificaAlimento(alimento);
 
@@ -54,17 +56,17 @@ public class PessoaController {
 
         } else if (verificadorCpf != null) {
             attr.addFlashAttribute("danger", "Este CPF já existe.");
-            return null;
+            return andViewRedirectCadastrar;
 
         } else if (verificadorAlimento != null) {
             attr.addFlashAttribute("danger", "Este alimento já existe.");
-            return null;
+            return andViewRedirectCadastrar;
 
         } else {
             pessoaRepository.cadastrarPessoaReepository(nome, cpf, alimento);
             attr.addFlashAttribute("success", "Cadastro salvo com sucesso!");
         }
-        return null;
+        return andViewRedirectListar;
     }
 
     @GetMapping("/alterar/{id}")
