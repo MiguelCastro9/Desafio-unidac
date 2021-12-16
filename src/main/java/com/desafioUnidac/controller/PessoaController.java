@@ -44,30 +44,27 @@ public class PessoaController {
     public ModelAndView salvarPessoa(String nome, String cpf, String alimento, @Valid Pessoa pessoa, BindingResult result, RedirectAttributes attr) {
 
         ModelAndView andView = new ModelAndView("cadastro");
-        ModelAndView andViewRedirectCadastrar = new ModelAndView("redirect:/cadastrar");
-        ModelAndView andViewRedirectListar = new ModelAndView("redirect:/listar");
-
+        //ModelAndView andViewRedirectCadastrar = new ModelAndView("redirect:/cadastrar");
+        //ModelAndView andViewRedirectListar = new ModelAndView("redirect:/listar");
         String verificadorCpf = pessoaRepository.verificaCpf(cpf);
         String verificadorAlimento = pessoaRepository.verificaAlimento(alimento);
-        System.out.println(verificadorCpf);
-        System.out.println(verificadorAlimento);
 
         if (result.hasErrors()) {
             return andView;
 
         } else if (verificadorCpf != null) {
             attr.addFlashAttribute("danger", "Este CPF já existe.");
-            return andViewRedirectCadastrar;
+            return null;
 
         } else if (verificadorAlimento != null) {
             attr.addFlashAttribute("danger", "Este alimento já existe.");
-            return andViewRedirectCadastrar;
+            return null;
 
         } else {
             pessoaRepository.cadastrarPessoaReepository(nome, cpf, alimento);
             attr.addFlashAttribute("success", "Cadastro salvo com sucesso!");
         }
-        return andViewRedirectListar;
+        return null;
     }
 
     @GetMapping("/alterar/{id}")
@@ -89,7 +86,6 @@ public class PessoaController {
 
         if (result.hasErrors()) {
             return andView;
-
         }
 
         if (!pessoa.getCpf().equalsIgnoreCase(pessoaAntiga.get().getCpf())) {
@@ -108,7 +104,6 @@ public class PessoaController {
                 attr.addFlashAttribute("danger", "Este alimento já existe.");
                 return andViewRedirectCadastrar;
             }
-
         }
 
         pessoaRepository.alterarPessoaReepository(nome, cpf, alimento, id);
