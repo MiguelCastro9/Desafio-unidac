@@ -27,6 +27,16 @@ public class PessoaController {
     public String cadastrarPessoa(@Valid Pessoa pessoa) {
         return "/cadastro";
     }
+    
+    @GetMapping("/")
+    public String index(ModelMap model){
+        
+        String teste = "123";
+        
+        model.addAttribute("teste", teste);
+        
+        return "/index";
+    }
 
     @PostMapping("/salvar")
     public String salvarPessoa(String nome, String cpf, String alimento, @Valid Pessoa pessoa, BindingResult result, RedirectAttributes attr) {
