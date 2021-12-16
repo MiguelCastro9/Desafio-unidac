@@ -28,20 +28,24 @@ public class PessoaController {
     public String cadastrarPessoa(@Valid Pessoa pessoa) {
         return "/cadastro";
     }
-    
+
     @GetMapping("/")
-    public ModelAndView index(ModelMap model){
-        
+    public ModelAndView index(ModelMap model) {
+
         ModelAndView andView = new ModelAndView("index");
         String teste = "123";
-        
+
         model.addAttribute("teste", teste);
-        
+
         return andView;
     }
 
     @PostMapping("/salvar")
-    public String salvarPessoa(String nome, String cpf, String alimento, @Valid Pessoa pessoa, BindingResult result, RedirectAttributes attr) {
+    public ModelAndView salvarPessoa(String nome, String cpf, String alimento, @Valid Pessoa pessoa, BindingResult result, RedirectAttributes attr) {
+
+        ModelAndView andView = new ModelAndView("cadastro");
+        ModelAndView andViewRedirectCadastrar = new ModelAndView("redirect:/cadastrar");
+        ModelAndView andViewRedirectListar = new ModelAndView("redirect:/listar");
 
         String verificadorCpf = pessoaRepository.verificaCpf(cpf);
         String verificadorAlimento = pessoaRepository.verificaAlimento(alimento);
@@ -49,37 +53,42 @@ public class PessoaController {
         System.out.println(verificadorAlimento);
 
         if (result.hasErrors()) {
-            return "/cadastro";
+            return andView;
 
         } else if (verificadorCpf != null) {
             attr.addFlashAttribute("danger", "Este CPF já existe.");
-            return "redirect:/cadastrar";
+            return andViewRedirectCadastrar;
 
         } else if (verificadorAlimento != null) {
             attr.addFlashAttribute("danger", "Este alimento já existe.");
-            return "redirect:/cadastrar";
+            return andViewRedirectCadastrar;
 
         } else {
             pessoaRepository.cadastrarPessoaReepository(nome, cpf, alimento);
             attr.addFlashAttribute("success", "Cadastro salvo com sucesso!");
         }
-        return "redirect:/listar";
+        return andViewRedirectListar;
     }
 
     @GetMapping("/alterar/{id}")
-    public String preAlterarPessoa(@PathVariable("id") Long id, ModelMap model) {
+    public ModelAndView preAlterarPessoa(@PathVariable("id") Long id, ModelMap model) {
+
+        ModelAndView andView = new ModelAndView("cadastro");
 
         model.addAttribute("pessoa", pessoaRepository.findById(id));
-        return "/cadastro";
+        return andView;
     }
 
     @PostMapping("/alterar")
-    public String alterarPessoa(String nome, String cpf, String alimento, Long id, @Valid Pessoa pessoa, BindingResult result, RedirectAttributes attr) {
+    public ModelAndView alterarPessoa(String nome, String cpf, String alimento, Long id, @Valid Pessoa pessoa, BindingResult result, RedirectAttributes attr) {
 
+        ModelAndView andView = new ModelAndView("cadastro");
+        ModelAndView andViewRedirectCadastrar = new ModelAndView("redirect:/cadastrar");
+        ModelAndView andViewRedirectListar = new ModelAndView("redirect:/listar");
         Optional<Pessoa> pessoaAntiga = pessoaRepository.findById(id);
 
         if (result.hasErrors()) {
-            return "/cadastro";
+            return andView;
 
         }
 
@@ -88,7 +97,7 @@ public class PessoaController {
             String verificadorCpf = pessoaRepository.verificaCpf(cpf);
             if (verificadorCpf != null) {
                 attr.addFlashAttribute("danger", "Este CPF já existe.");
-                return "redirect:/cadastrar";
+                return andViewRedirectCadastrar;
             }
         }
 
@@ -97,49 +106,49 @@ public class PessoaController {
             String verificadorAlimento = pessoaRepository.verificaAlimento(alimento);
             if (verificadorAlimento != null) {
                 attr.addFlashAttribute("danger", "Este alimento já existe.");
-                return "redirect:/cadastrar";
+                return andViewRedirectCadastrar;
             }
 
         }
-        
+
         pessoaRepository.alterarPessoaReepository(nome, cpf, alimento, id);
         attr.addFlashAttribute("warning", "Cadastro editado com sucesso!");
-        return "redirect:/listar";
+        return andViewRedirectListar;
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluirPessoa(@PathVariable("id") Long id) {
-
+    public ModelAndView excluirPessoa(@PathVariable("id") Long id) {
+        ModelAndView andViewRedirectListar = new ModelAndView("redirect:/listar");
         pessoaRepository.excluirPessoaRepository(id);
-        return "redirect:/listar";
+        return andViewRedirectListar;
     }
 
     @GetMapping("/listar")
-    public String listarPessoa(Pessoa pessoa, ModelMap model) {
-
+    public ModelAndView listarPessoa(Pessoa pessoa, ModelMap model) {
+        ModelAndView andViewRedirectListar = new ModelAndView("lista");
         model.addAttribute("pessoas", pessoaRepository.listarPessoaRepository());
-        return "/lista";
+        return andViewRedirectListar;
     }
 
     @GetMapping("/buscarNome")
-    public String buscarPorNome(ModelMap model, String nome) {
-
+    public ModelAndView buscarPorNome(ModelMap model, String nome) {
+        ModelAndView andViewRedirectListar = new ModelAndView("lista");
         model.addAttribute("pessoas", pessoaRepository.buscarPorNomeRepository(nome));
-        return "/lista";
+        return andViewRedirectListar;
     }
 
     @GetMapping("/buscarCpf")
-    public String buscarPorCpf(ModelMap model, String cpf) {
-
+    public ModelAndView buscarPorCpf(ModelMap model, String cpf) {
+        ModelAndView andViewRedirectListar = new ModelAndView("lista");
         model.addAttribute("pessoas", pessoaRepository.buscarPorCpfRepository(cpf));
-        return "/lista";
+        return andViewRedirectListar;
     }
 
     @GetMapping("/buscarAlimento")
-    public String buscarPorAlimento(ModelMap model, String alimento) {
-
+    public ModelAndView buscarPorAlimento(ModelMap model, String alimento) {
+        ModelAndView andViewRedirectListar = new ModelAndView("lista");
         model.addAttribute("pessoas", pessoaRepository.buscarPorAlimentoRepository(alimento));
-        return "/lista";
+        return andViewRedirectListar;
     }
 
 }
